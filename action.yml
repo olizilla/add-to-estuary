@@ -1,0 +1,40 @@
+name: 'Add to Estuary'
+description: 'Store your files on Estuary from a GitHub Action'
+author: olizilla
+branding:
+  icon: 'box'  
+  color: 'gray-dark'
+inputs:
+  path_to_add:
+    description: 'Directory path to add to Estuary'
+    required: true
+  estuary_api_key:
+    description: 'API Key for Estuary'
+    required: true
+  estuary_api_url:
+    description: 'URL for esturary instance and endpoint to POST the files to. default: https://shuttle-1.estuary.tech/content/add' 
+    default: https://shuttle-1.estuary.tech/content/add
+    required: true
+  gateway_url:
+    description: 'URL for IPFS gateway for preview urls' 
+    default: https://dweb.link
+    required: true
+outputs:
+  cid:
+    description: 'The IPFS Content ID for the directory e.g. bafkreihc7sejzq4ab4kygfyjvs4ye7bxyzgfdpzt7caqkizqnzgf6zgogi'
+    value: ${{ steps.get_cid.outputs.cid }}
+  url:
+    description: 'The IPFS gateway URL for the directory e.g https://dweb.link/ipfs/bafkreihc7sejzq4ab4kygfyjvs4ye7bxyzgfdpzt7caqkizqnzgf6zgogi'
+    value: ${{ steps.get_url.outputs.url }}
+runs:
+  using: "composite"
+  steps:
+    - name: add the files to estuary
+      run: 'curl -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -F "data=@${{ inputs.path_to_add }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" > ./response' 
+      shell: bash
+    - id: get_cid
+      run: echo "::set-output name=cid::$(jq '.cid' ./response)
+      shell: bash
+    - id: get_url
+      run: echo "::set-output name=url::${{ inputs.gateway_url }}/ipfs/${{ steps.get_cid.outputs.cid }}
+      shell: bash
