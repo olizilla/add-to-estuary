@@ -32,6 +32,8 @@ runs:
     - name: add the files to estuary
       run: 'curl -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -F "data=@${{ inputs.path_to_add }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" > ./response' 
       shell: bash
+    - run: echo ./response'
+      shell: bash
     - id: get_cid
       run: echo "::set-output name=cid::$(jq '.cid' ./response)
       shell: bash
