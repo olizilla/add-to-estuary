@@ -30,12 +30,13 @@ runs:
   using: "composite"
   steps:
     - name: add the files to estuary
-      run: 'curl -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -F "data=@${{ inputs.path_to_add }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" > ./response' 
+      run: 'curl --fail --silent --show-errors -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -F "data=@${{ inputs.path_to_add }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" | tee ./response'
       shell: bash
-    - run: echo ./response'
+    - name: fail if no CID in response
+      run: jq -e '.cid' ./response
       shell: bash
     - id: get_cid
-      run: echo "::set-output name=cid::$(jq '.cid' ./response)
+      run: echo "::set-output name=cid::$(jq -e '.cid' ./response)
       shell: bash
     - id: get_url
       run: echo "::set-output name=url::${{ inputs.gateway_url }}/ipfs/${{ steps.get_cid.outputs.cid }}
