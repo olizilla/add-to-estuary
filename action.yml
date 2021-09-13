@@ -36,8 +36,8 @@ runs:
       run: jq -e '.cid' ./response
       shell: bash
     - id: get_cid
-      run: echo "::set-output name=cid::$(jq -e '.cid' ./response)
+      run: echo "::set-output name=cid::$(jq -e '.cid' ./response)"
       shell: bash
     - id: get_url
-      run: echo "::set-output name=url::${{ inputs.gateway_url }}/ipfs/${{ steps.get_cid.outputs.cid }}
+      run: echo "::set-output name=url::${{ inputs.gateway_url }}/ipfs/${{ steps.get_cid.outputs.cid }}"
       shell: bash
