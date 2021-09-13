@@ -6,7 +6,7 @@ branding:
   color: 'gray-dark'
 inputs:
   path_to_add:
-    description: 'Directory path to add to Estuary'
+    description: 'File path to add to Estuary'
     required: true
   estuary_api_key:
     description: 'API Key for Estuary'
