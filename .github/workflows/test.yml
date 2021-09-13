@@ -1,0 +1,16 @@
+name: Test
+
+on:
+  pull_request:
+
+jobs:
+  run-action:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - id: add_to_estuary
+      uses: ./
+      with:
+        estuary_api_key: ${{ secrets.ESTUARY_API_KEY }}
+        path_to_add: 'test/fixtures/pointbreak2.jpg'
+    - run: echo ${{ steps.add_to_estuary.outputs.url }}

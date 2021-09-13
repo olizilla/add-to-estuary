@@ -6,7 +6,7 @@ branding:
   color: 'gray-dark'
 inputs:
   path_to_add:
-    description: 'Directory path to add to Estuary'
+    description: 'File path to add to Estuary'
     required: true
   estuary_api_key:
     description: 'API Key for Estuary'
@@ -30,11 +30,14 @@ runs:
   using: "composite"
   steps:
     - name: add the files to estuary
-      run: 'curl -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -F "data=@${{ inputs.path_to_add }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" > ./response' 
+      run: 'curl --fail --silent --show-error -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -F "data=@${{ inputs.path_to_add }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" | tee ./response'
+      shell: bash
+    - name: fail if no CID in response
+      run: jq -e '.cid' ./response
       shell: bash
     - id: get_cid
-      run: echo "::set-output name=cid::$(jq '.cid' ./response)
+      run: echo "::set-output name=cid::$(jq -e '.cid' ./response)"
       shell: bash
     - id: get_url
-      run: echo "::set-output name=url::${{ inputs.gateway_url }}/ipfs/${{ steps.get_cid.outputs.cid }}
+      run: echo "::set-output name=url::${{ inputs.gateway_url }}/ipfs/${{ steps.get_cid.outputs.cid }}"
       shell: bash
