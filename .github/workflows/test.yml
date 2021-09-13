@@ -11,6 +11,6 @@ jobs:
     - id: add_to_estuary
       uses: ./
       with:
-        estuary_api_token: ${{ secrets.ESTUARY_TOKEN }}
+        estuary_api_key: ${{ secrets.ESTUARY_API_KEY }}
         path_to_add: 'test/fixtures'
     - run: echo ${{ steps.add_to_estuary.outputs.url }}
