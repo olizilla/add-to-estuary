@@ -1,12 +1,10 @@
-# add-to-estuary
+# ➟ add-to-estuary
 
-➟ Store your files on Estuary from a GitHub Action
+Store your files on IPFS & Filecoin via [Estuary](https://estuary.tech/) from a GitHub Action
+
+![better together](https://bafkreideca5qwa3yrregubuesznsudwndszkdze2dmn7rg2k4ma3uldpyi.ipfs.dweb.link/)
 
 An experiment with a [composite github action][1]. It's [just yaml!](./action.yml)
-
-## TODO
-
-- How to upload a directory and get a single CID for the root.
 
 ## Example
 
@@ -26,6 +24,12 @@ jobs:
     # use the CID estuary returned for something fun!
     - run: echo ${{ steps.add_to_estuary.outputs.cid }}
 ```
+
+
+## TODO
+
+- How to upload a directory and get a single CID for the root.
+
 
 ## Inputs
 You must provide the `path_to_add` and an `estuary_api_key` to get the magic.
