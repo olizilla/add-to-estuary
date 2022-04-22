@@ -30,10 +30,10 @@ runs:
   using: "composite"
   steps:
     - name: pack the files into a Content-Addressed Archive (CAR)
-      run: npx ipfs-car --pack ${{ inputs.path_to_add }} --output redhot.car
+      run: npx ipfs-car --pack ${{ inputs.path_to_add }} --output lovely.car
       shell: bash
     - name: add the files to estuary
-      run: 'curl --fail --silent --show-error -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -H "Accept: application/json" -T redhot.car | tee ./response'
+      run: 'curl -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -H "Accept: application/json" -T lovely.car | tee ./response'
       shell: bash
     - name: fail if no CID in response
       run: jq -e '.cid' ./response
