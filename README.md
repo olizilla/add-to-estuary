@@ -25,12 +25,6 @@ jobs:
     - run: echo ${{ steps.add_to_estuary.outputs.cid }}
 ```
 
-
-## TODO
-
-- How to upload a directory and get a single CID for the root.
-
-
 ## Inputs
 You must provide the `path_to_add` and an `estuary_api_key` to get the magic.
 

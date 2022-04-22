@@ -12,8 +12,8 @@ inputs:
     description: 'API Key for Estuary'
     required: true
   estuary_api_url:
-    description: 'URL for esturary instance and endpoint to POST the files to. default: https://shuttle-1.estuary.tech/content/add' 
-    default: https://shuttle-1.estuary.tech/content/add
+    description: 'URL for esturary instance and endpoint to POST the files to. default: https://api.estuary.tech/content/add-car' 
+    default: https://api.estuary.tech/content/add-car
     required: true
   gateway_url:
     description: 'URL for IPFS gateway for preview urls' 
@@ -29,8 +29,11 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: pack the files into a Content-Addressed Archive (CAR)
+      run: npx ipfs-car --pack ${{ inputs.path_to_add }} --output redhot.car
+      shell: bash
     - name: add the files to estuary
-      run: 'curl --fail --silent --show-error -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -F "data=@${{ inputs.path_to_add }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" | tee ./response'
+      run: 'curl --fail --silent --show-error -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -T "redhot.car" -H "Accept: application/json" -H "Content-Type: multipart/form-data" | tee ./response'
       shell: bash
     - name: fail if no CID in response
       run: jq -e '.cid' ./response
