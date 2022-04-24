@@ -12,8 +12,8 @@ inputs:
     description: 'API Key for Estuary'
     required: true
   estuary_api_url:
-    description: 'URL for esturary instance and endpoint to POST the files to. default: https://upload.estuary.tech/content/add-car' 
-    default: https://upload.estuary.tech/content/add-car
+    description: 'URL for esturary instance and endpoint to POST the files to. default: https://shuttle-4.estuary.tech/content/add-car' 
+    default: https://shuttle-4.estuary.tech/content/add-car 
     required: true
   gateway_url:
     description: 'URL for IPFS gateway for preview urls' 
@@ -33,7 +33,7 @@ runs:
       run: npx ipfs-car --pack ${{ inputs.path_to_add }} --output lovely.car
       shell: bash
     - name: add the files to estuary
-      run: 'curl -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -H "Accept: application/json" -H "Content-Type: multipart/form-data" -F "data=@lovely.car" --silent --show-error | tee ./response'
+      run: 'curl -X POST ${{ inputs.estuary_api_url }} -H "Authorization: Bearer ${{ inputs.estuary_api_key }}" -H "Accept: application/json" -T lovely.car --silent --show-error | tee ./response'
       shell: bash
     - name: fail if no CID in response
       run: jq -e '.cid' ./response
