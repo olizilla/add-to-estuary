@@ -12,8 +12,8 @@ inputs:
     description: 'API Key for Estuary'
     required: true
   estuary_api_url:
-    description: 'URL for esturary instance and endpoint to POST the files to. default: https://api.estuary.tech/content/add-car' 
-    default: https://api.estuary.tech/content/add-car
+    description: 'URL for esturary instance and endpoint to POST the files to. default: https://upload.estuary.tech/content/add-car' 
+    default: https://upload.estuary.tech/content/add-car
     required: true
   gateway_url:
     description: 'URL for IPFS gateway for preview urls' 
