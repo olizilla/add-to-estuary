@@ -37,7 +37,7 @@ API Key for Estuary. _required_
 ### estuary_api_url
 URL for Estuary instance and endpoint to POST the files to. 
 
-_Default_ https://shuttle-1.estuary.tech/content/add
+_Default_ https://upload.estuary.tech/content/add
 
 ### gateway_url
 URL for IPFS gateway for preview urls
