@@ -2,7 +2,7 @@
 
 Store your files on IPFS & Filecoin via [Estuary](https://estuary.tech/) from a GitHub Action
 
-![better together](https://bafkreideca5qwa3yrregubuesznsudwndszkdze2dmn7rg2k4ma3uldpyi.ipfs.dweb.link/)
+![better together](https://bafkreideca5qwa3yrregubuesznsudwndszkdze2dmn7rg2k4ma3uldpyi.ipfs.w3s.link/)
 
 An experiment with a [composite github action][1]. It's [just yaml!](./action.yml)
 
