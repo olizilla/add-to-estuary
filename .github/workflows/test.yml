@@ -14,3 +14,9 @@ jobs:
         estuary_api_key: ${{ secrets.ESTUARY_API_KEY }}
         path_to_add: 'test/fixtures/pointbreak2.jpg'
     - run: echo ${{ steps.add_to_estuary.outputs.url }}
+    - id: add_to_estuary_2
+      uses: ./
+      with:
+        estuary_api_key: ${{ secrets.ESTUARY_API_KEY }}
+        path_to_add: 'test/fixtures'
+    - run: echo ${{ steps.add_to_estuary.outputs.url }}
