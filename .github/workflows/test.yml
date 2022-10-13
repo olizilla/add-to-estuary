@@ -19,4 +19,4 @@ jobs:
       with:
         estuary_api_key: ${{ secrets.ESTUARY_API_KEY }}
         path_to_add: 'test/fixtures'
-    - run: echo ${{ steps.add_to_estuary.outputs.url }}
+    - run: echo ${{ steps.add_to_estuary_2.outputs.url }}
