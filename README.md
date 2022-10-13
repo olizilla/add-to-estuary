@@ -1,12 +1,12 @@
 # ➟ add-to-estuary
 
-Store your files on IPFS & Filecoin via [Estuary](https://estuary.tech/) from a GitHub Action
-
-![better together](https://bafkreideca5qwa3yrregubuesznsudwndszkdze2dmn7rg2k4ma3uldpyi.ipfs.w3s.link/)
+Store your files on IPFS & Filecoin via [Estuary](https://estuary.tech/) from a GitHub Action.
 
 A [composite github action][1]. It's [just yaml!](./action.yml)
 
 ## Example
+
+You could publish your generated website `dist` dir to the dweb from CI!
 
 ```yml
 jobs:
@@ -19,10 +19,10 @@ jobs:
       uses: olizilla/add-to-estuary@main
       with:
         estuary_api_key: ${{ secrets.ESTUARY_API_KEY }}
-        path_to_add: 'dist/cool-cat.gif'
+        path_to_add: 'dist'
     
-    # use the CID estuary returned for something fun!
-    - run: echo ${{ steps.add_to_estuary.outputs.cid }}
+    - run: echo ${{ steps.add_to_estuary.outputs.url }}
+    # https://dweb.link/ipfs/bafkreihc7sejzq4ab4kygfyjvs4ye7bxyzgfdpzt7caqkizqnzgf6zgogi
 ```
 
 ## Inputs
@@ -49,10 +49,13 @@ _Default_ https://dweb.link
 You can grab the `cid` and `url` values for use in subsequent steps in your workflows, for things like setting a dnslink to publish a website on IPFS.
 
 ### cid
-The IPFS Content ID for the directory e.g. bafkreihc7sejzq4ab4kygfyjvs4ye7bxyzgfdpzt7caqkizqnzgf6zgogi'
+The IPFS Content ID for the directory e.g. bafkreihc7sejzq4ab4kygfyjvs4ye7bxyzgfdpzt7caqkizqnzgf6zgogi
 
 ### url
-The IPFS gateway URL for the directory e.g https://dweb.link/ipfs/bafkreihc7sejzq4ab4kygfyjvs4ye7bxyzgfdpzt7caqkizqnzgf6zgogi'
+The IPFS gateway URL for the directory e.g https://dweb.link/ipfs/bafkreihc7sejzq4ab4kygfyjvs4ye7bxyzgfdpzt7caqkizqnzgf6zgogi
+
+
+![better together](https://bafkreideca5qwa3yrregubuesznsudwndszkdze2dmn7rg2k4ma3uldpyi.ipfs.w3s.link/)
 
 
 [1]: https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
